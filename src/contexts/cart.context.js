@@ -16,11 +16,18 @@ const addCardItem = (cardItems, productToAdd) => {
     return [...cardItems, { ...productToAdd, quantity: 1 }];
 }
 
+const clearCardItem = (cardItems, clearToItem) => cardItems.filter(items => items.id !== clearToItem.id);
+
 const deleteCardItem = (cardItems, productToAdd) => {
     //find if cardItem contain productToDelete
     const existingCardItem = cardItems.find((item) =>
         item.id === productToAdd.id
     );
+
+    if (existingCardItem.quantity === 1) {
+        return cardItems.filter(items => items.id !== productToAdd.id);
+
+    }
     //if found, decrement quantity
     if (existingCardItem) {
         return cardItems.map((item) => item.id === productToAdd.id ?
@@ -37,17 +44,26 @@ export const CartContext = createContext({
     setIsCartOpen: () => { },
     cardItems: [],
     addItemToCard: () => { },
-    cardCount: 0
+    cardCount: 0,
+    deleteItemToCard: () => { },
+    clearItemToCard: () => { }
 });
 
 export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cardItems, setCardItems] = useState([]);
     const [cardCount, setCardCount] = useState(0);
+    const [cardTotal, setCardTotal] = useState(0);
 
     useEffect(() => {
-        const cartItemCountAdd = cardItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+        const cartItemCountAdd = cardItems.reduce(
+            (total, cartItem) =>total + cartItem.quantity,
+            0);
         setCardCount(cartItemCountAdd);
+        const cartItemTotal = cardItems.reduce(
+            (total, cartItem) => total + (cartItem.quantity * cartItem.price),
+            0);
+        setCardTotal(cartItemTotal);
     },
         [cardItems])
 
@@ -59,7 +75,11 @@ export const CartProvider = ({ children }) => {
         setCardItems(deleteCardItem(cardItems, productToAdd));
     }
 
-    const value = { isCartOpen, setIsCartOpen, addItemToCard, deleteItemToCard, cardItems, cardCount }
+    const clearItemToCard = (clearToItem) => {
+        setCardItems(clearCardItem(cardItems, clearToItem));
+    }
+
+    const value = { isCartOpen, setIsCartOpen, addItemToCard, deleteItemToCard, clearItemToCard, cardItems, cardCount, cardTotal }
 
     return (
         <CartContext.Provider value={value}>{children}</CartContext.Provider>
