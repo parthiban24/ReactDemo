@@ -6,7 +6,7 @@ import {
 } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component'
 import './sign-in-form.styles.scss'
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 const defaultFields = {
     email: '',
@@ -31,7 +31,6 @@ const SignInForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
             const { user } = await signAuthUserWithEmailAndPassowrd(
                 email,
@@ -71,8 +70,8 @@ const SignInForm = () => {
                     value={password} />
 
                 <div className="buttons-container">
-                    <Button buttonType='inverted' type="submit">Sign Up</Button>
-                    <Button type="button" buttonType='google' onClick={logGoogleUser}>Google Sign IN</Button>
+                    <Button buttonType={BUTTON_TYPE_CLASSES.inverted} type="submit">Sign In</Button>
+                    <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser}>Google Sign IN</Button>
                 </div>
             </form>
         </div>
