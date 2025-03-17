@@ -3,7 +3,7 @@ import { CartContext } from '../../contexts/cart.context';
 import './product-card.styles.scss'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 const ProductCard = ({ product }) => {
-    const { addItemToCard, cardItems } = useContext(CartContext);
+    const { addItemToCard } = useContext(CartContext);
     //console.log('ItemCard..!', cardItems);
     const addProductToCard = () => {
         addItemToCard(product)
