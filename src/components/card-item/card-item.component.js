@@ -2,7 +2,7 @@
 import './card-item.styles.scss'
 const CardItem = ({ cardItem }) => {
     const { name, quantity, imageUrl, price } = cardItem;
-    console.log('cardItem:', cardItem);
+    //console.log('cardItem:', cardItem);
     return (
         <div className='cart-item-container'>
             <img src={imageUrl} alt={`${name}`} />

@@ -5,7 +5,7 @@ const selectCartReducer = (state) => state.cart;
 export const selectCartItems = createSelector(
     [selectCartReducer],
     (cart) => {
-        console.log('selectCartItems:', cart.cardItems)
+        //console.log('selectCartItems:', cart.cardItems)
         return cart.cardItems;
     }
 );

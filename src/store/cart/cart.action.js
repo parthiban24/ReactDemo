@@ -1,6 +1,6 @@
 import createAction from "../../utils/reducer/reducer.utils";
 import { CART_ACTION_TYPE } from "./cart.types";
-import { createSelector } from "reselect";
+//import { createSelector } from "reselect";
 
 const addCardItem = (cardItems, productToAdd) => {
     // * find if cardItems contains productToAdd
